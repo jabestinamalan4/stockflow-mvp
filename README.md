@@ -29,7 +29,7 @@ Minimal SaaS inventory management app built to match the provided MVP PRD.
 
 - Backend: Node.js, Express, Prisma, PostgreSQL
 - Auth: JWT + bcrypt
-- Frontend: Vanilla HTML/CSS/JS (no extra framework to keep MVP fast/simple)
+- Frontend: React + Vite
 
 ## Project structure
 
@@ -56,6 +56,9 @@ You can copy from backend/.env.example.
 1. Install dependencies
 
 ```bash
+cd frontend
+npm install
+
 cd backend
 npm install
 ```
@@ -67,15 +70,41 @@ npx prisma generate
 npx prisma migrate dev
 ```
 
-3. Start app
+3. Build frontend
 
 ```bash
+cd frontend
+npm run build
+```
+
+4. Start backend app
+
+```bash
+cd backend
 npm start
 ```
 
-4. Open app
+5. Open app
 
 - http://localhost:5000
+
+## Optional developer mode (two terminals)
+
+Terminal 1:
+
+```bash
+cd backend
+npm run dev
+```
+
+Terminal 2:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Then open Vite URL shown in terminal (typically http://localhost:5173).
 
 ## API endpoints (MVP)
 

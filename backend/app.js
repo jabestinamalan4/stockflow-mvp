@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -25,14 +26,24 @@ app.use('/api/products', productRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/settings', settingsRoutes);
 
-app.use(express.static(path.join(__dirname, '../frontend')));
+const frontendDistPath = path.join(__dirname, '../frontend/dist');
+
+if (fs.existsSync(frontendDistPath)) {
+	app.use(express.static(frontendDistPath));
+}
 
 app.use((req, res, next) => {
 	if (req.path.startsWith('/api/')) {
 		return next();
 	}
 
-	return res.sendFile(path.join(__dirname, '../frontend/index.html'));
+	if (!fs.existsSync(frontendDistPath)) {
+		return res.status(503).json({
+			message: 'Frontend build not found. Run npm --prefix frontend run build.'
+		});
+	}
+
+	return res.sendFile(path.join(frontendDistPath, 'index.html'));
 });
 
 module.exports = app;

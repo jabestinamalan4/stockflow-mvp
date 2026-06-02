@@ -21,7 +21,7 @@ This repo now includes render.yaml, so Render auto-loads service config.
 4. Set Build Command:
 
 ```bash
-npm install && npx prisma generate && npx prisma migrate deploy
+npm install && npm --prefix ../frontend install && npm --prefix ../frontend run build && npx prisma generate && npx prisma migrate deploy
 ```
 
 5. Set Start Command:

@@ -1,55 +1,62 @@
 # Deploy StockFlow MVP on Render
 
-This is the fastest way to get a live link for submission.
+Use either option below.
 
-## 1. Push code to GitHub
+## Option A: Blueprint deploy (recommended)
 
-- Create repo and push your project.
-- Ensure backend and frontend folders are in the same repo.
+This repo now includes render.yaml, so Render auto-loads service config.
 
-## 2. Create PostgreSQL on Render
+1. In Render dashboard: New + -> Blueprint.
+2. Select your GitHub repo.
+3. Render reads render.yaml and creates the web service.
+4. Add required secrets when prompted:
+  - DATABASE_URL
+  - JWT_SECRET
 
-1. In Render dashboard, create a new PostgreSQL instance.
-2. Copy its Internal Database URL.
+## Option B: Manual web service deploy
 
-## 3. Create a Web Service
-
-1. New Web Service -> connect your GitHub repo.
-2. Root directory: backend
-3. Build command:
+1. Create PostgreSQL on Render and copy its Internal Database URL.
+2. Create a New Web Service from your GitHub repo.
+3. Set Root Directory to backend.
+4. Set Build Command:
 
 ```bash
 npm install && npx prisma generate && npx prisma migrate deploy
 ```
 
-4. Start command:
+5. Set Start Command:
 
 ```bash
 npm start
 ```
 
-## 4. Add environment variables
+6. Set env vars:
+  - DATABASE_URL=<Render PostgreSQL Internal URL>
+  - JWT_SECRET=<long random string>
 
-In Render service settings:
+## Verify deployment
 
-- DATABASE_URL = <Render PostgreSQL Internal URL>
-- JWT_SECRET = <long random string>
-- PORT = 10000
+1. Open your app URL and create an account.
+2. Check health endpoint:
 
-Note: Render sets its own port at runtime. Keeping PORT configured is harmless.
+```bash
+curl https://<your-app>.onrender.com/api/health
+```
 
-## 5. Verify deployment
+Expected response:
 
-- Open service URL
-- Sign up and run end-to-end demo flow:
-  - create product
-  - edit quantity
-  - verify dashboard low stock list
+```json
+{"status":"ok"}
+```
 
-## 6. Submit
+3. Do full demo flow:
+  - sign up / login
+  - create products
+  - verify dashboard totals and low stock items
+  - update settings threshold and confirm behavior changes
 
-Share:
+## Final submission checklist
 
-- GitHub repository link
-- Live Render URL
-- Brief demo steps / test account details (if needed)
+- Send GitHub repository link
+- Send live Render URL
+- Include short demo steps in your submission message

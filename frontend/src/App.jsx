@@ -255,7 +255,7 @@ function App() {
       <header className="topbar">
         <h1>StockFlow MVP</h1>
         <div className="topbar-right">
-          <span className="org-chip">{profile?.organization?.name || 'Guest'}</span>
+          <span className="org-chip">{profile?.organization?.name || 'Not logged in'}</span>
           {isAuthenticated && (
             <button type="button" className="btn secondary" onClick={handleLogout}>
               Logout

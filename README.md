@@ -34,7 +34,14 @@ Minimal SaaS inventory management app built to match the provided MVP PRD.
 ## Project structure
 
 - backend: API server + Prisma schema/migrations
-- frontend: static app served by backend
+- frontend: React app (Vite) built to dist and served by backend
+
+## React architecture notes
+
+- Single-page React app in frontend/src/App.jsx using component state and fetch API.
+- API base path is /api; local dev uses Vite proxy to backend.
+- Auth token stored in localStorage as stockflow_token and sent as Bearer token.
+- Views are kept intentionally simple (auth, dashboard, products, settings) for MVP speed.
 
 ## Prerequisites
 
